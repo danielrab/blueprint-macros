@@ -11,8 +11,21 @@
  */
 
 // Import TypeScript modules
-import { registerSettings } from './settings';
-import { preloadTemplates } from './preloadTemplates';
+import { registerSettings } from './util/settings';
+import { preloadTemplates } from './util/preloadTemplates';
+import { BlueprintEditor } from './editor';
+
+declare global {
+  const BlueprintMacros: {
+    Editor: typeof BlueprintEditor;
+  };
+  interface Window {
+    BlueprintMacros: typeof BlueprintMacros;
+  }
+}
+window.BlueprintMacros = {
+  Editor: BlueprintEditor,
+};
 
 // Initialize module
 Hooks.once('init', async () => {
